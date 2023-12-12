@@ -155,14 +155,16 @@ public static void Q3()
         System.out.println("Q4: Your damage is 2-16 (2d8)");
 
         int enemyHP = 100;
-        int a = 0;
+        int turnsTaken = 0;
 
-        boolean check = false;
-        while (true) {
-
+        boolean buffCheck = false;
+        while (true) 
+        {
             boolean doAttack = false;
             boolean check2 = false;
-            while (!check2) {
+            
+            while (!check2) 
+            {
                 next = scan.nextLine();
                 check2 = true;
                 switch (next) {
@@ -170,7 +172,7 @@ public static void Q3()
                         doAttack = true;
                         break;
                     case "B", "b":
-                        check = true;
+                        buffCheck = true;
                         System.out.println("Buffing! +5 to your next attack roll and damage");
                         break;
                     default:
@@ -179,41 +181,46 @@ public static void Q3()
                 }
             }
 
-            if (doAttack) {
-                a++;
+            if (doAttack) 
+            {
+                turnsTaken++;
                 int attackRoll = rng.nextInt(20) + 1;
                 int damage = 0;
                 System.out.print("You rolled: " + attackRoll);
-                if(check) {
+                if(buffCheck) 
+                {
                     attackRoll += 5;
                     System.out.print(" + 5 (buff active)\n");
-                } else {
-                    System.out.println();
-                }
-                if (attackRoll >= 12) {
+                } 
+               
+                if (attackRoll >= 12) 
+                {
                     damage = rng.nextInt(8) + 1;
                     damage += rng.nextInt(8) + 1;
-                    if(check) {
+                    if(buffCheck) {
                         damage += 5;
                     }
-                    if (attackRoll == 20 || (check && attackRoll == 20 + 5)) {
+                    if (attackRoll == 20 || (buffCheck && attackRoll == 20 + 5)) {
                         damage *= 2;
                         System.out.print("Critical hit! ");
                     }
                     System.out.print("You dealt " + damage + " damage");
-                    if(check) {
+                    if(buffCheck) {
                         System.out.print(" (buffed attack)");
                     }
                     enemyHP -= damage;
                     System.out.println("\nEnemy HP: " + Math.max(0, enemyHP));
 
-                } else {
+                } 
+                else 
+                {
                     System.out.println("Miss");
                 }
 
-                check = false;
-                if (enemyHP <= 0) {
-                    System.out.println("Enemy died in " + a + " turns");
+                buffCheck = false;
+                if (enemyHP <= 0) 
+                {
+                    System.out.println("Enemy died in " + turnsTaken + " turns");
                     scan.close();
                     return;
                 }
