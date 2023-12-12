@@ -58,7 +58,26 @@ public class Lab10 {
         int day = Integer.parseInt(scan.nextLine());
         System.out.println("Enter the current month: (1-12)");
         int month = Integer.parseInt(scan.nextLine());
-        String monthString = new String("");
+        String monthString = new String("");        
+        String dayAppendix = new String("");
+        int dayLastDigit = day % 10;
+
+        if(dayLastDigit == 1 && day != 11)
+        {
+            dayAppendix = "st";
+        }
+        else if(dayLastDigit == 2 && day != 12)
+        {
+            dayAppendix = "nd";
+        }
+        else if(dayLastDigit == 3 && day != 13)
+        {
+            dayAppendix = "rd";
+        }
+        else
+        {
+            dayAppendix = "th";
+        }
 
         switch(month)
         {
@@ -88,10 +107,14 @@ public class Lab10 {
             break;
             default: System.out.println("Invalid month");
         }
-
-
-        
-        
+        if(day < 31 && month < 13 )
+        {
+            System.out.println("You have selected " + day + dayAppendix + " of " + monthString);
+        }
+        else
+        {
+            System.out.println("Invalid date entered");
+        }
     }
 
 public static void Q3() {
